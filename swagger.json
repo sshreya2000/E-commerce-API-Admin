@@ -1,0 +1,124 @@
+{
+    "openapi": "3.0.0",
+    "info":{
+    "title": "E-commerce API",
+    "description": "E-commerce admin API",
+    "version": "1.0.0"
+    },
+    "servers":[
+        {
+            "url":"http://localhost:4000"
+        }
+    ],
+    "paths":{
+        "/products/create":{
+            "post":{
+                "tags":["Products"],
+                "summary": "Create Product",
+                "description":"create product for admin",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "name":{
+                                        "type":"string"
+                                        },
+                                    "quantity":{
+                                        "type":"integer"
+                                        }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"created"
+                    },
+                    "400":{
+                        "description":"Bad request"
+                    }
+                }
+            }
+        },
+        "/products/":{
+            "get":{
+                "tags":["Products"],
+                "summary": "Get Products",
+                "description":"get all products for admin",
+                "responses":{
+                    "200":{
+                        "description":"ok"
+                    },
+                    "400":{
+                        "description":"Bad request"
+                    }
+                }
+            }
+        },
+        "/products/{id}/update_quantity":{
+            "put":{
+                "tags":["Products"],
+                "summary": "Update product by id",
+                "description":"User can update the product by id",
+                "parameters":[
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "The ID of product to update",
+                        "schema":{
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "number",
+                        "description": "filter the items based on number either increment or decrement",
+                        "required": true,
+                        "schema":{
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"ok"
+                    },
+                    "400":{
+                        "description":"Product not found"
+                    }
+                }
+            }
+        },
+        "/products/{id}":{
+            "delete":{
+                "tags":["Products"],
+                "summary": "Delete product by id",
+                "description":"User can delete the product by id",
+                "parameters":[
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "The ID of product to delete",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"ok"
+                    },
+                    "400":{
+                        "description":"Product not found"
+                    }
+                }
+            }
+        }
+        
+    }
+}
