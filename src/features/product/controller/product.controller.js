@@ -10,7 +10,9 @@ export default class ProductController {
     try {
       const { name, quantity } = req.body;
       const createdRecord = await this.productRepository.add(name, quantity);
-      res.status(201).json({ data: { product: createdRecord } });
+      if (createdRecord != null)
+        res.status(201).json({ data: { product: createdRecord } });
+      else res.status(400).send("Something went wrong with database");
     } catch (err) {
       res.status(400).send("Something went wrong");
     }
@@ -20,7 +22,9 @@ export default class ProductController {
   async getProducts(req, res) {
     try {
       const products = await this.productRepository.getAll();
-      res.status(200).json({ data: { products: products } });
+      if (products.length > 0)
+        res.status(200).json({ data: { products: products } });
+      else res.status(400).send("Products not found");
     } catch (err) {
       res.status(400).send("Something went wrong");
     }
